@@ -145,24 +145,24 @@ async def main():
             continue
         elif not exchange_profile[exchange_id]['has_orderbooks']:
             print("no has_orderbooks" , exchange_id)
-            # try:
-            #     exchange_class = getattr(ccxtpro, exchange_id)
-            #     exchange = exchange_class({'enableRateLimit': False})
-            #     await exchange.load_markets()  # 必须加载市场
-            #     exchanges.append(exchange)
-            #     for symbol in symbols:
-            #         print("inner start ", exchange_id, symbol, '...')
+            try:
+                exchange_class = getattr(ccxtpro, exchange_id)
+                exchange = exchange_class({'enableRateLimit': False})
+                await exchange.load_markets()  # 必须加载市场
+                exchanges.append(exchange)
+                for symbol in symbols:
+                    print("inner start ", exchange_id, symbol, '...')
 
-            #         task = asyncio.create_task(watch_one_symbol(exchange, exchange_id, symbol))
-            #         tasks.append(task)
-            #         # await asyncio.sleep(2)
-            # except asyncio.CancelledError:
-            #     print(f"🟡 Cancelled: {exchange_id}")
-            # except Exception as e:
-            #     print(f"🔴 Error in {exchange_id}: {e}")
-            # finally:
-            #     await exchange.close()
-            #     print(f"✅ Closed {exchange_id}")
+                    task = asyncio.create_task(watch_one_symbol(exchange, exchange_id, symbol))
+                    tasks.append(task)
+                    # await asyncio.sleep(2)
+            except asyncio.CancelledError:
+                print(f"🟡 Cancelled: {exchange_id}")
+            except Exception as e:
+                print(f"🔴 Error in {exchange_id}: {e}")
+            finally:
+                await exchange.close()
+                print(f"✅ Closed {exchange_id}")
         else:
             print(f"start {exchange_id} >>>>>>>>>>>>>>>")
             task = asyncio.create_task(watch_orderbooks(exchange_id, symbols))
