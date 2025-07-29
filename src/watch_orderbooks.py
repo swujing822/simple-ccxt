@@ -209,7 +209,7 @@ if __name__ == '__main__':
     # select_symbols = ["BTC/USDT:USDT","ETH/USDT:USDT","SOL/USDT:USDT","XRP/USDT:USDT","LTC/USDT:USDT",]
     # select_symbols = ["BTC/USDT:USDT"]
 
-    start = 1
+    start = 0
     end = 50
     cache_seconds = 60*30
     run_seconds = 60*60*2
