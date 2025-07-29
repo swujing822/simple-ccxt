@@ -192,5 +192,16 @@ if __name__ == '__main__':
     select_symbols = ["BTC/USDT:USDT","ETH/USDT:USDT","SOL/USDT:USDT","XRP/USDT:USDT","LTC/USDT:USDT",]
     transpose_to_exchange_symbol_matrix(select_symbols)
 
-    asyncio.run(main())
+    # asyncio.run(main())
+
+    try:
+        # 设置 5 分钟（300 秒）超时
+        asyncio.run(asyncio.wait_for(main(), timeout=100))
+    except asyncio.TimeoutError:
+        print("⏰ 超时退出：已经运行 5 分钟，正在清理任务并退出。")
+    except KeyboardInterrupt:
+        print("🔴 手动中断退出。")
+    finally:
+        # 手动调用 asyncio.run(main()) 之外的收尾清理（如有）
+        print("🧹 清理结束，程序退出。")
 
