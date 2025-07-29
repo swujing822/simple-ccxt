@@ -48,6 +48,8 @@ def transpose_to_exchange_symbol_matrix(start, end, input_path="seletor_pro/popu
 
     print(f"\n✅ 转置矩阵已保存到 {output_path}，共 {len(exchange_to_symbols)} 个交易所")
 
+    return popular_contracts
+
 
 
 async def watch_one_symbol(exchange, exchange_id, symbol, max_retries=3):
@@ -196,7 +198,10 @@ if __name__ == '__main__':
     # select_symbols = ["BTC/USDT:USDT","ETH/USDT:USDT","SOL/USDT:USDT","XRP/USDT:USDT","LTC/USDT:USDT",]
     # select_symbols = ["BTC/USDT:USDT"]
 
-    transpose_to_exchange_symbol_matrix(1,60)
+    start = 1
+    end = 60
+
+    popular_contracts = transpose_to_exchange_symbol_matrix(start, end)
 
     # asyncio.run(main())
 
@@ -209,5 +214,6 @@ if __name__ == '__main__':
         print("🔴 手动中断退出。")
     finally:
         # 手动调用 asyncio.run(main()) 之外的收尾清理（如有）
+        print("contracts 共有: ",len(popular_contracts), '本次执行：', start, end)
         print("🧹 清理结束，程序退出。")
 
