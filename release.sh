@@ -1,5 +1,5 @@
 #!/bin/bash
-TAG="v1.0"
+TAG="v1.1"
 TITLE=$TAG"-alpha"
 NOTES="ccxt"
 gh release create "$TAG" --title "$TITLE" --notes "$NOTES"

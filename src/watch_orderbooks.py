@@ -44,7 +44,6 @@ def transpose_to_exchange_symbol_matrix(select_symbols, input_path="seletor_pro/
 
     print(f"\n✅ 转置矩阵已保存到 {output_path}，共 {len(exchange_to_symbols)} 个交易所")
 
-    return exchange_to_symbols
 
 
 async def watch_one_symbol(exchange, exchange_id, symbol, max_retries=3):
@@ -68,22 +67,6 @@ async def watch_one_symbol(exchange, exchange_id, symbol, max_retries=3):
             await asyncio.sleep(1)
 
     print(f"❌ Exiting {exchange_id} - {symbol} subscription after {max_retries} failed attempts.")
-
-# async def watch_one_symbol(exchange, exchange_id, symbol):
-#     while True:
-#         try:
-#             ob = await exchange.watch_order_book(symbol)
-#             symbol_clean = symbol.replace("/", "_").replace(":", "_")
-#             csv_file = f'{csv_dir}/inner_orderbook_{exchange_id}_{symbol_clean}.csv'
-#             timestamp_ms = ob['timestamp']
-#             # print(f"{ob['nonce']} {ob['timestamp']} {format_time_from_timestamp(timestamp_ms)} [{exchange_id}] {symbol} {ob['asks'][0]}")
-#             # print(ob['symbol'])
-
-#             save_orderbook_top2_to_csv(ob, csv_file)
-#         except Exception as e:
-#             print(f"🔴 Failed to subscribe {symbol} on {exchange_id}: {e}")
-#             await asyncio.sleep(1)
-#             continue
 
 # 单个交易所聚合 ticker 订阅协程
 async def watch_orderbooks(exchange_id, symbols):
@@ -134,35 +117,15 @@ async def watch_orderbooks(exchange_id, symbols):
 import json
 async def main():
 
-    with open("../selector/top100_exchange_symbols.json", "r", encoding="utf-8") as f:
+    with open("./exchange_to_symbols.json", "r", encoding="utf-8") as f:
         ex_syms = json.load(f)
 
     with open("./exchange_profile.json", "r", encoding="utf-8") as f:
         exchange_profile = json.load(f)
 
-    # print(exchange_profile)
-
-    # for exchange_id in exchange_profile:
-    #     has_orderbooks = exchange_profile[exchange_id]['has_orderbooks']
-    #     has_tickers = exchange_profile[exchange_id]['has_tickers']
-    #     has_orderbook = exchange_profile[exchange_id]['has_orderbook']
-    #     has_ticker = exchange_profile[exchange_id]['has_ticker']
-
-    #     print(f'{exchange_id:<22} | OrderBookForSymbols: {"✅" if has_orderbooks else "❌"} | '
-    #           f'watchTickers: {"✅" if has_tickers else "❌"} | '
-    #           f'has_orderbook: {"✅" if has_orderbook else "❌"} | '
-    #           f'has_ticker: {"✅" if has_ticker else "❌"}')
-
-    # print(ex_syms)
-    #     "AAVE/USDT:USDT",
-    # "ACT/USDT:USDT",
-    # "ADA/USDT:USDT",
-
     tasks = []
-    inner_tasks = []
-
-
-    skips = ["digifinex", "bitmart", 'lbank', 'bitrue']
+    # skips = ["digifinex", "bitmart", 'lbank', 'bitrue']
+    skips = []
 
     # selected = ["ascendex", 'bybit']
     selected = ["ascendex"]
@@ -177,23 +140,26 @@ async def main():
         #     continue
                 
         symbols = ex_syms[exchange_id]
-        if not exchange_profile[exchange_id]['has_orderbooks']:
-        # if len(symbols) > 0:
-            try:
-                exchange_class = getattr(ccxtpro, exchange_id)
-                exchange = exchange_class({'enableRateLimit': False})
-                await exchange.load_markets()  # 必须加载市场
-                exchanges.append(exchange)
-                for symbol in symbols:
-                    print("inner start ", exchange_id, symbol, '...')
+        if exchange_id not in exchange_profile:
+            print(f"key: {exchange_id} not exist.")
+            continue
+        elif not exchange_profile[exchange_id]['has_orderbooks']:
+            print("no has_orderbooks" , exchange_id)
+            # try:
+            #     exchange_class = getattr(ccxtpro, exchange_id)
+            #     exchange = exchange_class({'enableRateLimit': False})
+            #     await exchange.load_markets()  # 必须加载市场
+            #     exchanges.append(exchange)
+            #     for symbol in symbols:
+            #         print("inner start ", exchange_id, symbol, '...')
 
-                    task = asyncio.create_task(watch_one_symbol(exchange, exchange_id, symbol))
-                    tasks.append(task)
-                    # await asyncio.sleep(2)
-            except asyncio.CancelledError:
-                print(f"🟡 Cancelled: {exchange_id}")
-            except Exception as e:
-                print(f"🔴 Error in {exchange_id}: {e}")
+            #         task = asyncio.create_task(watch_one_symbol(exchange, exchange_id, symbol))
+            #         tasks.append(task)
+            #         # await asyncio.sleep(2)
+            # except asyncio.CancelledError:
+            #     print(f"🟡 Cancelled: {exchange_id}")
+            # except Exception as e:
+            #     print(f"🔴 Error in {exchange_id}: {e}")
             # finally:
             #     await exchange.close()
             #     print(f"✅ Closed {exchange_id}")
@@ -223,6 +189,8 @@ async def main():
             print(f"✅ Closed {ex}")
 
 if __name__ == '__main__':
-    # asyncio.run(main())
     select_symbols = ["BTC/USDT:USDT","ETH/USDT:USDT","SOL/USDT:USDT","XRP/USDT:USDT","LTC/USDT:USDT",]
     transpose_to_exchange_symbol_matrix(select_symbols)
+
+    asyncio.run(main())
+
