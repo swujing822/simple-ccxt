@@ -44,6 +44,8 @@ def transpose_to_exchange_symbol_matrix(select_symbols, input_path="seletor_pro/
 
     print(f"\n✅ 转置矩阵已保存到 {output_path}，共 {len(exchange_to_symbols)} 个交易所")
 
+    return exchange_to_symbols
+
 
 async def watch_one_symbol(exchange, exchange_id, symbol, max_retries=3):
     retry_count = 0
@@ -164,8 +166,6 @@ async def main():
 
     # selected = ["ascendex", 'bybit']
     selected = ["ascendex"]
-
-
     exchanges = []
 
     for exchange_id in ex_syms:
