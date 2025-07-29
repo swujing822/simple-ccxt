@@ -1,0 +1,244 @@
+{
+  "apex": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "ascendex": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "bigone": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "binance": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "binanceusdm": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "bingx": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "bitfinex": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "bitget": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "bitmart": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "bitmex": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "bitrue": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "blofin": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "bybit": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "coincatch": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "coinex": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "delta": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "deribit": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT"
+  ],
+  "digifinex": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "fmfwio": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "gate": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "gateio": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "hashkey": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "hitbtc": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "htx": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "huobi": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "kucoinfutures": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "lbank": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "mexc": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "myokx": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "okx": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "okxus": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "phemex": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "poloniex": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "whitebit": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ],
+  "xt": [
+    "BTC/USDT:USDT",
+    "ETH/USDT:USDT",
+    "LTC/USDT:USDT",
+    "SOL/USDT:USDT",
+    "XRP/USDT:USDT"
+  ]
+}

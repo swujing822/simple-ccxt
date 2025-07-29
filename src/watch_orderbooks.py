@@ -6,6 +6,8 @@ import time
 from datetime import datetime, timezone
 import shutil
 from utils.save_csv import *
+import json
+from collections import defaultdict
 
 csv_dir = "csv_orderbooks_exchange"
 
@@ -14,6 +16,34 @@ clean_dir(csv_dir)
 csv_symbol_dir = "csv_orderbooks_symbol"
 
 clean_dir(csv_symbol_dir)
+
+
+def transpose_to_exchange_symbol_matrix(select_symbols, input_path="seletor_pro/popular_contracts.json", output_path="exchange_to_symbols.json"):
+    """
+    将 popular_contracts.json 转换为 exchange -> [symbols] 的结构，并保存为 JSON。
+    """
+    with open(input_path, "r", encoding="utf-8") as f:
+        popular_contracts = json.load(f)
+
+    exchange_to_symbols = defaultdict(list)
+
+    for item in popular_contracts:
+        symbol = item["symbol"]
+
+        if symbol not in select_symbols:
+            continue
+
+        for exchange in item["exchanges"]:
+            exchange_to_symbols[exchange].append(symbol)
+
+    for exchange in exchange_to_symbols:
+        exchange_to_symbols[exchange] = sorted(exchange_to_symbols[exchange])
+
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(exchange_to_symbols, f, indent=2, ensure_ascii=False)
+
+    print(f"\n✅ 转置矩阵已保存到 {output_path}，共 {len(exchange_to_symbols)} 个交易所")
+
 
 async def watch_one_symbol(exchange, exchange_id, symbol, max_retries=3):
     retry_count = 0
@@ -193,4 +223,6 @@ async def main():
             print(f"✅ Closed {ex}")
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    # asyncio.run(main())
+    select_symbols = ["BTC/USDT:USDT","ETH/USDT:USDT","SOL/USDT:USDT","XRP/USDT:USDT","LTC/USDT:USDT",]
+    transpose_to_exchange_symbol_matrix(select_symbols)
