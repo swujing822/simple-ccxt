@@ -18,7 +18,7 @@ csv_symbol_dir = "../csv_orderbooks_symbol"
 clean_dir(csv_symbol_dir)
 
 
-def transpose_to_exchange_symbol_matrix(select_symbols, input_path="seletor_pro/popular_contracts.json", output_path="exchange_to_symbols.json"):
+def transpose_to_exchange_symbol_matrix(start, end, input_path="seletor_pro/popular_contracts.json", output_path="exchange_to_symbols.json"):
     """
     将 popular_contracts.json 转换为 exchange -> [symbols] 的结构，并保存为 JSON。
     """
@@ -27,11 +27,11 @@ def transpose_to_exchange_symbol_matrix(select_symbols, input_path="seletor_pro/
 
     exchange_to_symbols = defaultdict(list)
 
-    for item in popular_contracts:
-        symbol = item["symbol"]
+    start = max(0, start)
+    end = min(len(popular_contracts) -1 , end)
 
-        if symbol not in select_symbols:
-            continue
+    for item in popular_contracts[start:end]:
+        symbol = item["symbol"]
 
         for exchange in item["exchanges"]:
             exchange_to_symbols[exchange].append(symbol)
@@ -189,8 +189,10 @@ async def main():
             print(f"✅ Closed {ex}")
 
 if __name__ == '__main__':
-    select_symbols = ["BTC/USDT:USDT","ETH/USDT:USDT","SOL/USDT:USDT","XRP/USDT:USDT","LTC/USDT:USDT",]
-    transpose_to_exchange_symbol_matrix(select_symbols)
+    # select_symbols = ["BTC/USDT:USDT","ETH/USDT:USDT","SOL/USDT:USDT","XRP/USDT:USDT","LTC/USDT:USDT",]
+    # select_symbols = ["BTC/USDT:USDT"]
+
+    transpose_to_exchange_symbol_matrix(1,3)
 
     # asyncio.run(main())
 
