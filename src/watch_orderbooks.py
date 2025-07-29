@@ -9,11 +9,11 @@ from utils.save_csv import *
 import json
 from collections import defaultdict
 
-csv_dir = "csv_orderbooks_exchange"
+csv_dir = "../csv_orderbooks_exchange"
 
 clean_dir(csv_dir)
 
-csv_symbol_dir = "csv_orderbooks_symbol"
+csv_symbol_dir = "../csv_orderbooks_symbol"
 
 clean_dir(csv_symbol_dir)
 
