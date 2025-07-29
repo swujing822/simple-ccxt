@@ -211,7 +211,8 @@ if __name__ == '__main__':
 
     start = 1
     end = 50
-    cache_seconds = 60
+    cache_seconds = 60*30
+    run_seconds = 60*60*2
 
     popular_contracts = transpose_to_exchange_symbol_matrix(start, end)
 
@@ -219,7 +220,7 @@ if __name__ == '__main__':
 
     try:
         # 设置 5 分钟（300 秒）超时
-        asyncio.run(asyncio.wait_for(main(), timeout=60*5))
+        asyncio.run(asyncio.wait_for(main(), timeout=run_seconds))
         
     except asyncio.TimeoutError:
         print("⏰ 超时退出：已经运行 5 分钟，正在清理任务并退出。")
