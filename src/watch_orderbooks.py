@@ -9,6 +9,8 @@ from utils.save_csv import *
 import json
 from collections import defaultdict
 
+from cache_writer import cache_orderbook_top2, periodic_cache_writer, flush_cache_to_csv
+
 csv_dir = "../csv_orderbooks_exchange"
 
 clean_dir(csv_dir)
@@ -58,15 +60,18 @@ async def watch_one_symbol(exchange, exchange_id, symbol, max_retries=3):
         try:
             ob = await exchange.watch_order_book(symbol)
             retry_count = 0  # 成功订阅后重置重试计数器
+            cache_orderbook_top2(exchange_id, ob)
+            cache_orderbook_top2(exchange_id, ob)
 
-            symbol_clean = symbol.replace("/", "_").replace(":", "_")
-            csv_file = f'{csv_dir}/inner_orderbook_{exchange_id}_{symbol_clean}.csv'
+            # symbol_clean = symbol.replace("/", "_").replace(":", "_")
+            # csv_file = f'{csv_dir}/inner_orderbook_{exchange_id}_{symbol_clean}.csv'
             # timestamp_ms = ob['timestamp']
 
-            save_orderbook_top2_to_csv(exchange_id, ob, csv_file)
+            # save_orderbook_top2_to_csv(exchange_id, ob, csv_file)
 
-            csv_symbol_file = f'{csv_symbol_dir}/ob_{symbol_clean}.csv'
-            save_orderbook_top2_to_csv(exchange_id, ob, csv_symbol_file)
+
+            # csv_symbol_file = f'{csv_symbol_dir}/ob_{symbol_clean}.csv'
+            # save_orderbook_top2_to_csv(exchange_id, ob, csv_symbol_file)
         except Exception as e:
             retry_count += 1
             print(f"🔴 Failed to subscribe {symbol} on {exchange_id}: {e} [retry {retry_count}/{max_retries}]")
@@ -84,15 +89,17 @@ async def watch_orderbooks(exchange_id, symbols):
         if exchange.has['watchOrderBookForSymbols']:
             while True:
                 ob = await exchange.watchOrderBookForSymbols(symbols)
-                symbol = ob['symbol'].replace("/", "_").replace(":", "_")
-                csv_file = f'{csv_dir}/orderbook_{exchange_id}_{symbol}.csv'
+                cache_orderbook_top2(exchange_id, ob)
+                cache_orderbook_top2(exchange_id, ob)
+
+                # symbol = ob['symbol'].replace("/", "_").replace(":", "_")
+                # csv_file = f'{csv_dir}/orderbook_{exchange_id}_{symbol}.csv'
 
                 # print(ob['asks'][0], ob['symbol'])
-                # save_orderbook_top2_to_csv(ob, csv_file)
-                save_orderbook_top2_to_csv(exchange_id, ob, csv_file)
+                # save_orderbook_top2_to_csv(exchange_id, ob, csv_file)
 
-                csv_symbol_file = f'{csv_symbol_dir}/ob_{symbol}.csv'
-                save_orderbook_top2_to_csv(exchange_id, ob, csv_symbol_file)
+                # csv_symbol_file = f'{csv_symbol_dir}/ob_{symbol}.csv'
+                # save_orderbook_top2_to_csv(exchange_id, ob, csv_symbol_file)
                 # for symbol, ticker in tickers.items():
                 #     save_ticker_to_csv(exchange_id, symbol, ticker)
         else:
@@ -176,6 +183,10 @@ async def main():
             await asyncio.sleep(1)  # 👈 延迟启动，避免被限速封 IP 等问题
     try:
         # await asyncio.gather(*tasks)
+        # 添加定时任务
+        flush_task = asyncio.create_task(periodic_cache_writer(cache_seconds))  # 每 1800 秒写入一次
+        tasks.append(flush_task)
+
         await asyncio.gather(*tasks, return_exceptions=True)
 
     except KeyboardInterrupt:
@@ -199,7 +210,8 @@ if __name__ == '__main__':
     # select_symbols = ["BTC/USDT:USDT"]
 
     start = 1
-    end = 60
+    end = 50
+    cache_seconds = 60
 
     popular_contracts = transpose_to_exchange_symbol_matrix(start, end)
 
@@ -208,12 +220,14 @@ if __name__ == '__main__':
     try:
         # 设置 5 分钟（300 秒）超时
         asyncio.run(asyncio.wait_for(main(), timeout=60*5))
+        
     except asyncio.TimeoutError:
         print("⏰ 超时退出：已经运行 5 分钟，正在清理任务并退出。")
     except KeyboardInterrupt:
         print("🔴 手动中断退出。")
     finally:
         # 手动调用 asyncio.run(main()) 之外的收尾清理（如有）
+        flush_cache_to_csv()
         print("contracts 共有: ",len(popular_contracts), '本次执行：', start, end)
         print("🧹 清理结束，程序退出。")
 
