@@ -27,8 +27,12 @@ def transpose_to_exchange_symbol_matrix(start, end, input_path="seletor_pro/popu
 
     exchange_to_symbols = defaultdict(list)
 
+    print("总个数:", len(popular_contracts))
+
     start = max(0, start)
     end = min(len(popular_contracts) -1 , end)
+
+    print("本次执行: ", start, end, "共", end-start+1)
 
     for item in popular_contracts[start:end]:
         symbol = item["symbol"]
@@ -192,13 +196,13 @@ if __name__ == '__main__':
     # select_symbols = ["BTC/USDT:USDT","ETH/USDT:USDT","SOL/USDT:USDT","XRP/USDT:USDT","LTC/USDT:USDT",]
     # select_symbols = ["BTC/USDT:USDT"]
 
-    transpose_to_exchange_symbol_matrix(1,3)
+    transpose_to_exchange_symbol_matrix(1,30)
 
     # asyncio.run(main())
 
     try:
         # 设置 5 分钟（300 秒）超时
-        asyncio.run(asyncio.wait_for(main(), timeout=100))
+        asyncio.run(asyncio.wait_for(main(), timeout=60*5))
     except asyncio.TimeoutError:
         print("⏰ 超时退出：已经运行 5 分钟，正在清理任务并退出。")
     except KeyboardInterrupt:
