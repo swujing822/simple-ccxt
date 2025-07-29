@@ -196,7 +196,7 @@ if __name__ == '__main__':
     # select_symbols = ["BTC/USDT:USDT","ETH/USDT:USDT","SOL/USDT:USDT","XRP/USDT:USDT","LTC/USDT:USDT",]
     # select_symbols = ["BTC/USDT:USDT"]
 
-    transpose_to_exchange_symbol_matrix(1,30)
+    transpose_to_exchange_symbol_matrix(1,60)
 
     # asyncio.run(main())
 
