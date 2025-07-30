@@ -215,8 +215,8 @@ if __name__ == '__main__':
     total_count = 530
     # start = 0
     # end = 50
-    cache_seconds = 60*1
-    run_seconds = 60*2*1
+    cache_seconds = 60*30
+    run_seconds = 60*60*1
 
     row = get_latest_row()
     print("latest row: ", row)
