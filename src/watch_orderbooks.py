@@ -251,8 +251,8 @@ if __name__ == '__main__':
         print(dt_str)
 
         # source_dir 是你要打包的目录
-        ex_zip = f'csv_orderbooks_exchange_{start}_{end}_{dt_str}'
-        symbol_zip = f'csv_orderbooks_symbol_{start}_{end}_{dt_str}'
+        ex_zip = f'csv_orderbooks_exchange_{dt_str}_{start}_{end}'
+        symbol_zip = f'csv_orderbooks_symbol_{dt_str}_{start}_{end}'
         shutil.make_archive(ex_zip, 'zip', root_dir='../csv_orderbooks_exchange')
         shutil.make_archive(symbol_zip, 'zip', root_dir='../csv_orderbooks_symbol')
 
