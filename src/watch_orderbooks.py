@@ -205,18 +205,32 @@ async def main():
             await ex.close()
             print(f"✅ Closed {ex}")
 
+
+from utils.schedule_record import *
+from upload import *
+
 if __name__ == '__main__':
-    # select_symbols = ["BTC/USDT:USDT","ETH/USDT:USDT","SOL/USDT:USDT","XRP/USDT:USDT","LTC/USDT:USDT",]
-    # select_symbols = ["BTC/USDT:USDT"]
+    count = 50
 
-    start = 0
-    end = 50
-    cache_seconds = 60*30
-    run_seconds = 60*60*2
+    total_count = 530
+    # start = 0
+    # end = 50
+    cache_seconds = 60*1
+    run_seconds = 60*2*1
 
-    popular_contracts = transpose_to_exchange_symbol_matrix(start, end)
+    row = get_latest_row()
+    print("latest row: ", row)
 
-    # asyncio.run(main())
+
+    if total_count - row['end_num'] < 50:
+        start = 0
+    else:
+        start = row['end_num']
+    end = start + count
+    add_row(start=start, end=end, count=count, remark="", runner="python-script")
+
+    popular_contracts = transpose_to_exchange_symbol_matrix(start, end) #  save to json
+    print("contracts 共有: ",len(popular_contracts), '本次执行：', start, end)
 
     try:
         # 设置 5 分钟（300 秒）超时
@@ -230,5 +244,27 @@ if __name__ == '__main__':
         # 手动调用 asyncio.run(main()) 之外的收尾清理（如有）
         flush_cache_to_csv()
         print("contracts 共有: ",len(popular_contracts), '本次执行：', start, end)
+
+        # import shutil
+
+        dt_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+        print(dt_str)
+
+        # source_dir 是你要打包的目录
+        ex_zip = f'csv_orderbooks_exchange_{start}_{end}_{dt_str}'
+        symbol_zip = f'csv_orderbooks_symbol_{start}_{end}_{dt_str}'
+        shutil.make_archive(ex_zip, 'zip', root_dir='../csv_orderbooks_exchange')
+        shutil.make_archive(symbol_zip, 'zip', root_dir='../csv_orderbooks_symbol')
+
+        unzip()
+        upload(ex_zip+".zip")
+        upload(symbol_zip+".zip")
+        dir_path = './drive'
+        if os.path.exists(dir_path) and os.path.isdir(dir_path):
+            shutil.rmtree(dir_path)
+            print(f"✅ 已删除目录：{dir_path}")
+        else:
+            print(f"⚠️ 目录不存在：{dir_path}")
+
         print("🧹 清理结束，程序退出。")
 
