@@ -95,7 +95,8 @@ async def watch_orderbooks(exchange_id, symbols):
                 # symbol = ob['symbol'].replace("/", "_").replace(":", "_")
                 # csv_file = f'{csv_dir}/orderbook_{exchange_id}_{symbol}.csv'
 
-                # print(ob['asks'][0], ob['symbol'])
+                # 
+
                 # save_orderbook_top2_to_csv(exchange_id, ob, csv_file)
 
                 # csv_symbol_file = f'{csv_symbol_dir}/ob_{symbol}.csv'
