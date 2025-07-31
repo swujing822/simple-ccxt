@@ -5,7 +5,7 @@ import csv
 import os
 
 # === 通用配置 ===
-TIMEOUT_SECONDS = 300
+TIMEOUT_SECONDS = 60*60*2
 FUNDING_RATE_INTERVAL = 10
 
 # ✅ 你只需要配置 exchange_id、symbol、是否要资金费率
@@ -14,6 +14,11 @@ EXCHANGES_CONFIG = [
     {"exchange_id": "gateio", "symbol": "DFDVX/USDT:USDT", "include_funding": True},
 ]
 
+# bitmex     | BMEX/USDT:USDT  | 资金费率: 0.9539%
+# EXCHANGES_CONFIG = [
+#     {"exchange_id": "bitmex", "symbol": "BMEX/USDT", "include_funding": False},
+#     {"exchange_id": "bitmex", "symbol": "BMEX/USDT:USDT", "include_funding": True},
+# ]
 
 def log(msg: str):
     now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
