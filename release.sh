@@ -1,7 +1,7 @@
 #!/bin/bash
-TAG="v1.3.0"
+TAG="v1.3.1"
 TITLE=$TAG"-alpha"
-NOTES="ccxt"
+NOTES="add gemini api test"
 gh release create "$TAG" --title "$TITLE" --notes "$NOTES"
 REPO_URL=$(gh repo view --json nameWithOwner -q '.nameWithOwner')
 echo "Source ZIP:"
