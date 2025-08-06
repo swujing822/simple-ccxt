@@ -1,1 +1,1 @@
-unzip drive.zip -d drive
+zip -r drive.zip drive

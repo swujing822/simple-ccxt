@@ -7,6 +7,23 @@ import os
 
 SCOPES = ['https://www.googleapis.com/auth/drive.file']
 
+def unzip():
+    import zipfile
+    import os
+
+    # 路径配置
+    zip_path = 'drive.zip'
+    extract_to = './'  # 解压到 drive 文件夹（可改成你想要的位置）
+
+    # 创建目标目录（如果不存在）
+    os.makedirs(extract_to, exist_ok=True)
+
+    # 解压
+    with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+        zip_ref.extractall(extract_to)
+
+    print(f"✅ 解压完成，文件已提取到：{extract_to}")
+
 def upload(zipfile):
     creds = None
     if os.path.exists('drive/token.json'):
@@ -14,12 +31,13 @@ def upload(zipfile):
 
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
+            print("刷新token!!!!")
             creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file('desk.json', SCOPES)
-            creds = flow.run_local_server(port=0)
-        with open('drive/token.json', 'w') as token:
-            token.write(creds.to_json())
+        # else:
+        #     flow = InstalledAppFlow.from_client_secrets_file('desk.json', SCOPES)
+        #     creds = flow.run_local_server(port=0)
+        # with open('drive/token.json', 'w') as token:
+        #     token.write(creds.to_json())
 
     # service = build('drive', 'v3', credentials=creds)
 
@@ -43,5 +61,5 @@ def upload(zipfile):
 
 # if __name__ == '__main__':
 #     main()
-
-# upload()
+unzip()
+upload("drive.zip")
