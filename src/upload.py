@@ -12,14 +12,14 @@ def upload(zipfile):
     if os.path.exists('drive/token.json'):
         creds = Credentials.from_authorized_user_file('drive/token.json', SCOPES)
 
-    # if not creds or not creds.valid:
-    #     if creds and creds.expired and creds.refresh_token:
-    #         creds.refresh(Request())
-    #     else:
-    #         flow = InstalledAppFlow.from_client_secrets_file('desk.json', SCOPES)
-    #         creds = flow.run_local_server(port=0)
-    #     with open('token.json', 'w') as token:
-    #         token.write(creds.to_json())
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file('desk.json', SCOPES)
+            creds = flow.run_local_server(port=0)
+        with open('drive/token.json', 'w') as token:
+            token.write(creds.to_json())
 
     # service = build('drive', 'v3', credentials=creds)
 
