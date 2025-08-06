@@ -21,10 +21,22 @@ def upload(zipfile):
     #     with open('token.json', 'w') as token:
     #         token.write(creds.to_json())
 
+    # service = build('drive', 'v3', credentials=creds)
+
+    # # ✅ 上传 drive.zip
+    # file_metadata = {'name': zipfile}
+    # media = MediaFileUpload(zipfile, mimetype='application/zip')
+    # uploaded = service.files().create(body=file_metadata, media_body=media, fields='id').execute()
+    # print("✅ 上传成功，文件 ID:", uploaded.get("id"))
+
+
     service = build('drive', 'v3', credentials=creds)
 
-    # ✅ 上传 drive.zip
-    file_metadata = {'name': zipfile}
+    folder_id = '1-j5jZhLczV_IvfLexsVsONJ9ADeeCYKq'
+    file_metadata = {
+        'name': zipfile,
+        'parents': [folder_id]  # 指定父文件夹
+    }
     media = MediaFileUpload(zipfile, mimetype='application/zip')
     uploaded = service.files().create(body=file_metadata, media_body=media, fields='id').execute()
     print("✅ 上传成功，文件 ID:", uploaded.get("id"))
