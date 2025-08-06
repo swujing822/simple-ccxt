@@ -228,11 +228,11 @@ if __name__ == '__main__':
     else:
         start = row['end_num']
     end = start + count
-    # add_row(start=start, end=end, count=count, remark="", runner="python-script")
+    add_row(start=start, end=end, count=count, remark="", runner="python-script")
 
-    start = 3
-    end = 5
-    run_seconds = 60*1*1 # for debug
+    # start = 3
+    # end = 5
+    # run_seconds = 60*1*1 # for debug
 
     popular_contracts = transpose_to_exchange_symbol_matrix(start, end) #  save to json
     print("contracts 共有: ",len(popular_contracts), '本次执行：', start, end)
