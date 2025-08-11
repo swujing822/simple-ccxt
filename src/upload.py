@@ -39,14 +39,6 @@ def upload(zipfile):
         # with open('drive/token.json', 'w') as token:
         #     token.write(creds.to_json())
 
-    # service = build('drive', 'v3', credentials=creds)
-
-    # # ✅ 上传 drive.zip
-    # file_metadata = {'name': zipfile}
-    # media = MediaFileUpload(zipfile, mimetype='application/zip')
-    # uploaded = service.files().create(body=file_metadata, media_body=media, fields='id').execute()
-    # print("✅ 上传成功，文件 ID:", uploaded.get("id"))
-
 
     service = build('drive', 'v3', credentials=creds)
 
@@ -62,4 +54,4 @@ def upload(zipfile):
 # if __name__ == '__main__':
 #     main()
 unzip()
-upload("drive.zip")
+# upload("drive.zip")
