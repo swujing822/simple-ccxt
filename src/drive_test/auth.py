@@ -5,9 +5,9 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 
 SCOPES = ['https://www.googleapis.com/auth/drive.file']
-TOKEN_PATH = 'token.json'
+TOKEN_PATH = 'token_new.json'
 
-NEW_TOKEN_PATH = 'token2.json'
+NEW_TOKEN_PATH = 'token.json'
 
 CREDENTIALS_PATH = 'credentials.json'
 
