@@ -261,15 +261,15 @@ if __name__ == '__main__':
         shutil.make_archive(ex_zip, 'zip', root_dir='../csv_orderbooks_exchange')
         shutil.make_archive(symbol_zip, 'zip', root_dir='../csv_orderbooks_symbol')
 
-        unzip()
-        upload(ex_zip+".zip")
-        upload(symbol_zip+".zip")
-        dir_path = './drive'
-        if os.path.exists(dir_path) and os.path.isdir(dir_path):
-            shutil.rmtree(dir_path)
-            print(f"✅ 已删除目录：{dir_path}")
-        else:
-            print(f"⚠️ 目录不存在：{dir_path}")
+        # unzip() # get token
+        # upload(ex_zip+".zip")
+        # upload(symbol_zip+".zip")
+        # dir_path = './drive'
+        # if os.path.exists(dir_path) and os.path.isdir(dir_path):
+        #     shutil.rmtree(dir_path)
+        #     print(f"✅ 已删除目录：{dir_path}")
+        # else:
+        #     print(f"⚠️ 目录不存在：{dir_path}")
 
         print("🧹 清理结束，程序退出。")
 
